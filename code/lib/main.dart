@@ -9,7 +9,15 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(options: const FirebaseOptions(
+      apiKey: 'AIzaSyCNyaRdNsIF-XDtH6jODG4i8NhfPNFXtOQ', 
+      appId: '1:959952857527:web:84dc67cf526dfaaaa42032', 
+      messagingSenderId: '959952857527', 
+      projectId: 'link-14908',
+      storageBucket: 'link-14908.appspot.com',
+      authDomain: 'link-14908.firebaseapp.com',
+    )
+    );
   } else {
     await Firebase.initializeApp();
   }
