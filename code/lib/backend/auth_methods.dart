@@ -40,5 +40,5 @@ class AuthMethods {
     return result;
   }
 
-  // Login User function dsf
+  // Login User function
 }
