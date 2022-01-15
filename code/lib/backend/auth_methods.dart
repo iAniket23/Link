@@ -39,4 +39,6 @@ class AuthMethods {
     }
     return result;
   }
+
+  // Login User function
 }
