@@ -1,3 +1,4 @@
+import 'package:code/backend/auth_methods.dart';
 import 'package:code/utils/colors.dart';
 import 'package:code/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -41,16 +42,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             TextFieldInput(
                 textEditingController: _usernameController,
                 hintText: 'Enter your username',
-                textInputType: TextInputType.text
-                ),
+                textInputType: TextInputType.text),
             const SizedBox(height: 16),
 
             //text for email
             TextFieldInput(
                 textEditingController: _emailController,
                 hintText: 'Enter your email',
-                textInputType: TextInputType.emailAddress
-                ),
+                textInputType: TextInputType.emailAddress),
             const SizedBox(height: 16),
 
             // text for password
@@ -61,19 +60,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
               isPass: true,
             ),
             const SizedBox(height: 16),
-            
+
             // text for bio
             TextFieldInput(
-                textEditingController: _descriptionController,
-                hintText: 'Enter your bio',
-                textInputType: TextInputType.multiline,
-                ),
-                const SizedBox(height: 16),
+              textEditingController: _descriptionController,
+              hintText: 'Enter your bio',
+              textInputType: TextInputType.multiline,
+            ),
+            const SizedBox(height: 16),
 
             //login button
             const SizedBox(height: 16),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                String result = await AuthMethods().signUpUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _usernameController.text,
+                    description: _descriptionController.text);
+              },
               child: Container(
                 child: const Text('Sign Up'),
                 width: double.infinity,
