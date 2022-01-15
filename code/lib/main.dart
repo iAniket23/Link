@@ -1,6 +1,7 @@
 import 'package:code/responsive/mobile_screen_layout.dart';
 import 'package:code/responsive/responsive_screen_layout.dart';
 import 'package:code/responsive/web_screen_layout.dart';
+import 'package:code/screen/login_UI.dart';
 import 'package:code/utils/colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -36,10 +37,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileScreenLayout(),
-        webScreenLayout: WebScreenLayout(),
-      ),
+      home: LoginScreen(),
+      // home: const ResponsiveLayout(
+      //   mobileScreenLayout: MobileScreenLayout(),
+      //   webScreenLayout: WebScreenLayout(),
+      // ),
     );
   }
 }
