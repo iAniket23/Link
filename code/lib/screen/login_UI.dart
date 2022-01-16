@@ -1,7 +1,8 @@
+import 'package:code/backend/auth_methods.dart';
 import 'package:code/utils/colors.dart';
+import 'package:code/utils/utils.dart';
 import 'package:code/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,6 +14,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void loginUser() async {
+    String result = await AuthMethods().loginUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    if (result == "success") {
+    } else {
+      showSnackBar(result, context);
+    }
+  }
 
   @override
   void dispose() {
@@ -54,23 +67,23 @@ class _LoginScreenState extends State<LoginScreen> {
             InkWell(
               onTap: () {},
               child: Container(
-                        child: const Text('Log in'),
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: const ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(4),
-                              ),
-                            ),
-                            color: buttonColor),
+                child: const Text('Log in'),
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    color: buttonColor),
+              ),
             ),
-            ),
-            
+
             //transition to sign up
-            Flexible(child: Container(), flex:2),
-           
+            Flexible(child: Container(), flex: 2),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -79,18 +92,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(
                     vertical: 8,
                   ),
-
                 ),
                 GestureDetector(
-                  onTap: () {
-                    
-                  },
+                  onTap: () {},
                   child: Container(
-                        child: const Text("Sign up.",style: TextStyle(fontWeight: FontWeight.bold)),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                        ),
-                      ),
+                    child: const Text("Sign up.",
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
+                  ),
                 )
               ],
             ),
