@@ -40,10 +40,10 @@ class AuthMethods {
         await _firestore.collection('teams').doc(teamID).set(
               team.toJson(),
             );
-        // await _firestore
-        //     .collection('users')
-        //     .doc(_auth.currentUser!.uid)
-        //     .update({model.te: teamList.add(teamID)});
+        await _firestore
+            .collection('users')
+            .doc(_auth.currentUser!.uid)
+            .update({'teamList':[teamID]});
       }
     } catch (error) {
       result = error.toString();
