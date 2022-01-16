@@ -4,6 +4,7 @@ import 'package:code/utils/colors.dart';
 import 'package:code/utils/utils.dart';
 import 'package:code/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_screen_layout.dart';
@@ -70,10 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
           child: Column(
+            
             children: [
             
             //image logo

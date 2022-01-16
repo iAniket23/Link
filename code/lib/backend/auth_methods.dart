@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:code/backend/models/user.dart' as model;
+import 'package:code/backend/models/team.dart' as teamModel;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,32 @@ class AuthMethods {
         await _firestore.collection('users').doc(currentUser.uid).get();
 
     return model.User.fromSnap(snap);
+  }
+
+  // create team function
+  Future<String> createTeam({
+    required String teamName,
+  }) async {
+    String result = "Error!";
+    try {
+      if (teamName.isNotEmpty) {
+        teamModel.Team team = teamModel.Team(
+          teamName: teamName,
+          members: [],
+          allTeamTask: [],
+          scrumMaster: _auth.currentUser!.uid,
+          uuid: _auth.currentUser!.uid,
+        );
+        await _firestore
+            .collection('teams')
+            .doc(_auth.currentUser!.uid)
+            .set(team.toJson(),
+            );
+      }
+    } catch (error) {
+      result = error.toString();
+    }
+    return result;
   }
 
   // sign up user function
@@ -44,6 +71,8 @@ class AuthMethods {
           uid: cred.user!.uid,
           email: email,
           description: description,
+          teamList: [],
+          taskList: [],
         );
         await _firestore.collection('users').doc(cred.user!.uid).set(
               user.toJson(),

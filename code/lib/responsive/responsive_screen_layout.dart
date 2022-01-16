@@ -34,7 +34,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
       builder: (context, constraints) {
         if (constraints.maxWidth > webScreenSize) {
           // web screen
-          return widget.webScreenLayout;
+          return widget.mobileScreenLayout;
         }
         // mobile screen
         return widget.mobileScreenLayout;
