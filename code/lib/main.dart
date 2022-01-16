@@ -1,15 +1,14 @@
-import 'package:code/providers/user_provider.dart';
 import 'package:code/responsive/mobile_screen_layout.dart';
 import 'package:code/responsive/responsive_screen_layout.dart';
 import 'package:code/responsive/web_screen_layout.dart';
 import 'package:code/screen/login_UI.dart';
 import 'package:code/screen/signup_UI.dart';
+import 'package:code/screen/welcome_UI.dart';
 import 'package:code/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,11 +34,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Link',
       theme: ThemeData.dark().copyWith(
@@ -57,9 +52,7 @@ class MyApp extends StatelessWidget {
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                return const ResponsiveLayout(
-                    mobileScreenLayout: MobileScreenLayout(),
-                    webScreenLayout: WebScreenLayout());
+                return const WelcomeScreen();
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),
@@ -73,6 +66,6 @@ class MyApp extends StatelessWidget {
             }
             return const LoginScreen();
           })),
-    ),);
+    );
   }
 }
