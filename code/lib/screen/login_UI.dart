@@ -14,8 +14,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
     String result = await AuthMethods().loginUser(
       email: _emailController.text,
       password: _passwordController.text,
@@ -25,6 +29,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       showSnackBar(result, context);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -43,9 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
           width: double.infinity,
           child: Column(children: [
             //image logo
-            const SizedBox(height: 16),
-            Image.asset('assets/villager.png', height: 200),
             const SizedBox(height: 8),
+            Image.asset('assets/Link_logo.png', height: 200, width: 220,),
 
             //text for email
             TextFieldInput(
@@ -65,9 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
             //login button
             const SizedBox(height: 16),
             InkWell(
-              onTap: () {},
+              onTap: loginUser,
               child: Container(
-                child: const Text('Log in'),
+                child: _isLoading ? const Center(child:CircularProgressIndicator(), 
+                ): const Text('Log in'),
                 width: double.infinity,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(vertical: 12),

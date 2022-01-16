@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   // sign up user function
   Future<String> signUpUser({
     required String email,
@@ -45,13 +46,15 @@ class AuthMethods {
     required String email,
     required String password,
   }) async {
-    String result = "error";
+    String result = "Error!";
     // validating all the inputs
     try {
       if (email.isNotEmpty || password.isNotEmpty) {
         await _auth.signInWithEmailAndPassword(
             email: email, password: password);
         result = "Success";
+      } else {
+        result = "Please enter all the fields";
       }
     } catch (error) {
       result = error.toString();
