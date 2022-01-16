@@ -71,9 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
-          child: Column(children: [
+          child: Column(
+            children: [
+            
             //image logo
             const SizedBox(height: 8),
             Image.asset(
@@ -122,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
             //transition to sign up
             Flexible(child: Container(), flex: 2),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

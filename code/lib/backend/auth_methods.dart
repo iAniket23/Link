@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:code/backend/models/user.dart' as model;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,13 +27,13 @@ class AuthMethods {
             email: email, password: password);
 
         // add user to database
-        await _firestore.collection('users').doc(cred.user!.uid).set({
-          'username': username,
-          'uid': cred.user!.uid,
-          'email': email,
-          'description': description,
-          'team members': [],
-        });
+        model.User user = model.User(
+          username: username,
+          uid: cred.user!.uid,
+          email: email,
+          description: description,
+        );
+        await _firestore.collection('users').doc(cred.user!.uid).set(user.toJson(),);
         result = "success";
       }
     } catch (error) {
