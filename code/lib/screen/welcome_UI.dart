@@ -22,10 +22,6 @@ void joinTeam(){
 
 }
 
-void createTeam(){
-
-}
-
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {

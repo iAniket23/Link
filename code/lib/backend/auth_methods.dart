@@ -6,6 +6,7 @@ import 'package:code/backend/models/team.dart' as teamModel;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,18 +29,21 @@ class AuthMethods {
     String result = "Error!";
     try {
       if (teamName.isNotEmpty) {
+        String teamID = const Uuid().v1();
         teamModel.Team team = teamModel.Team(
           teamName: teamName,
-          members: [],
+          members: [_auth.currentUser!.uid],
           allTeamTask: [],
           scrumMaster: _auth.currentUser!.uid,
-          uuid: _auth.currentUser!.uid,
+          uuid: teamID,
         );
-        await _firestore
-            .collection('teams')
-            .doc(_auth.currentUser!.uid)
-            .set(team.toJson(),
+        await _firestore.collection('teams').doc(teamID).set(
+              team.toJson(),
             );
+        // await _firestore
+        //     .collection('users')
+        //     .doc(_auth.currentUser!.uid)
+        //     .update({model.te: teamList.add(teamID)});
       }
     } catch (error) {
       result = error.toString();
